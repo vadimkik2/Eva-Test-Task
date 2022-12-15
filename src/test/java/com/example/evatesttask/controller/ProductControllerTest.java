@@ -1,8 +1,12 @@
 package com.example.evatesttask.controller;
 
+import com.example.evatesttask.dto.ProductResponseDto;
+import com.example.evatesttask.mapper.ResponseDtoMapper;
 import com.example.evatesttask.model.Product;
 import com.example.evatesttask.service.ProductService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import java.util.stream.Stream;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -22,7 +25,6 @@ import java.util.stream.Stream;
 class ProductControllerTest {
     @MockBean
     private ProductService productService;
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -34,10 +36,13 @@ class ProductControllerTest {
     @Test
     public void shouldShowAllProductsByNameFilter() {
         String nameFilter = "^.*[1].*$";
-        Stream<Product> mockProductsStream = Stream.of(
+        List<Product> mockProducts = List.of(
                 new Product(1L, "Product", "description"),
                 new Product(2L, "Product1", "description"));
-        Mockito.when(productService.getByNameFilter(nameFilter)).thenReturn(mockProductsStream);
+        List<ProductResponseDto> collect = mockProducts.stream()
+                .map(ResponseDtoMapper.INSTANCE::mapToDto)
+                .collect(Collectors.toList());
+        Mockito.when(productService.getByNameFilter(nameFilter)).thenReturn(collect);
 
         RestAssuredMockMvc
                 .given()

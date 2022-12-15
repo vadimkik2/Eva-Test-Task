@@ -17,7 +17,7 @@ public class DataInitializer {
         repository.save(firstProduct);
         Product secondProduct = new Product("Ipad1","description");
         repository.save(secondProduct);
-        Product product = new Product("Xiaomi","description");
-        repository.save(product);
+        Product thirdProduct = new Product("Xiaomi","description");
+        repository.save(thirdProduct);
     }
 }

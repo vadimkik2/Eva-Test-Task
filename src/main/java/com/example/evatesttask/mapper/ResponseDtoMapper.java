@@ -1,4 +1,4 @@
-package com.example.evatesttask.dto.mapper;
+package com.example.evatesttask.mapper;
 
 import com.example.evatesttask.dto.ProductResponseDto;
 import com.example.evatesttask.model.Product;

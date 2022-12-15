@@ -1,8 +1,8 @@
 package com.example.evatesttask.service;
 
-import com.example.evatesttask.model.Product;
-import java.util.stream.Stream;
+import com.example.evatesttask.dto.ProductResponseDto;
+import java.util.List;
 
 public interface ProductService {
-    Stream<Product> getByNameFilter(String nameFilter);
+    List<ProductResponseDto> getByNameFilter(String nameFilter);
 }
